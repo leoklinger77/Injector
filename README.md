@@ -1,6 +1,8 @@
 # Injector
 
-# Document
+The objective of this package is to simplify the development of .NET Core projects, providing additional ease to the developer when instantiating services in Dependency Injection. Its implementation aims to free the developer from concerns related to service configurations, allowing him to focus fully on the development and implementation of functionalities.
+
+The code in this package goes through all the project's assemblies, identifying all Annotations Classes and automatically instantiating them in the ServiceCollection. This eliminates the need for manual intervention by the developer, providing a more efficient and hassle-free approach to configuring services.
 
 # Get Start
 -- install-package
@@ -25,29 +27,29 @@
         Injection.Initialize();
     }
 
-Depois da inicialização do Injeção, caso precise fazer alguma configuração na Injeção de Dependencia, pode obter o ServiceCollection da seguinte maneira:
+After Injection initialization, if you need to perform any configuration in Dependency Injection, you can obtain the ServiceCollection as follows:
 
     Injection.Service()
         .AddScoped<IScopeService, ScopeService>();
 
-Após realizar toda a configuração desejada, realize o build da seguinda maneira:
+After carrying out all the desired configuration, carry out the build as follows:
 
     // Injection Build
     Injection.Build();   
 
 
-Para simplificar ainda mais, você pode informar que deseja fazer o build automáticamente, informando 'true' como parametro do initialize, dessa maneira, você não podera realizar configuração após a inicialição:
+To simplify it even further, you can inform that you want to build automatically, entering 'true' as the initialization parameter, this way, you cannot perform the configuration after initialization:
 
     Injection.Initialize(build: true);
 
 
 
-## Importante
-#### Caso não exista interface, será injetado o serviço da mesma forma. 
-#### O Padrão esperado das interfaces começa com I e possui o mesmo nome da classe implementadora. Exemplo abaixo:
+## Important
+#### If there is no interface, the service will be injected in the same way.
+#### The expected Pattern of interfaces starts with I and has the same name as the implementing class. Example below:
 
 ## Scope
-Para adicionar um serviço do tipo Scope, basta colocar a annotation na implementação do serviço da seguinte maneira:
+To add a Scope service, simply place the annotation in the service implementation as follows:
 
     //Interface
     public interface IScopeService {
@@ -64,6 +66,7 @@ Para adicionar um serviço do tipo Scope, basta colocar a annotation na implemen
 
 
 ## Singleton
+To add singleton
 
     [Singleton]
     public class SingletonService : ISingletonService {        
@@ -73,6 +76,8 @@ Para adicionar um serviço do tipo Scope, basta colocar a annotation na implemen
     }
 
 ## Transient
+To add transient
+
     [Transient]
     public class TransientService : ITransientService {
         public string Get() {
@@ -80,8 +85,8 @@ Para adicionar um serviço do tipo Scope, basta colocar a annotation na implemen
         }
     }
 
-## Backgroud
-Você pode implementar um serviço em Backgroud utilizando a implementação do IHostedService ou BackgroundService
+## Background
+You can implement a service in Background using the implementation of IHostedService or BackgroundService
 
     [Background]
     public class ExampleHostedService : IHostedService, IDisposable {
@@ -130,11 +135,11 @@ Você pode implementar um serviço em Backgroud utilizando a implementação do 
     }
 
 ## Configurando HttpClient com MessageHandler
-Para utilizar um MessageHandler, informe o Type da class que implementa um DelegatingHandler na assinatura 'handler' da seguinte forma:
+To use a MessageHandler, enter the Type of the class that implements a DelegatingHandler in the 'handler' signature as follows:
 
     [HttpClient(handler: typeof(HttpServiceMessageHandler))]
 
-Por default o nome do contexto de injeção do HttpClient sera o nome da class de implementação, exemplo:
+By default, the name of the HttpClient injection context will be the name of the implementation class, as follows:
 
     [HttpClient(handler: typeof(HttpServiceMessageHandler))]
     public class HandlerHttpService : ISimpleHttpService {
@@ -146,7 +151,7 @@ Por default o nome do contexto de injeção do HttpClient sera o nome da class d
         }
     }
 
-Caso queire customizar o nome, pode utilizar o parametro da assinature 'Name', da seguinte forma
+If you want to customize the name, you can use the 'name' signature parameter, as follows:
         
     [HttpClient(name: "Google", handler: typeof(HttpServiceMessageHandler))]
     public class HandlerHttpService : ISimpleHttpService {
@@ -159,7 +164,7 @@ Caso queire customizar o nome, pode utilizar o parametro da assinature 'Name', d
     }
 
 
-Voce também pode informar a Url Base do serviço, e caso o nome da interface não tenha o padrão .net, você também pode informa-lo da seguinte forma:
+You can also enter the Base Url of the service, and if the interface name does not have the .net standard, you can also enter it as follows:
 
 
     [HttpClient(
