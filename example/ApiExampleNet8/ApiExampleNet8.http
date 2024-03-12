@@ -1,0 +1,6 @@
+@ApiExampleNet8_HostAddress = http://localhost:5197
+
+GET {{ApiExampleNet8_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
