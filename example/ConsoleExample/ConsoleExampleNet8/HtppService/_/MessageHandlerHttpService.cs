@@ -4,7 +4,7 @@ namespace ConsoleExampleNet8.HtppService {
 
     [HttpClient(
         @interface: typeof(IMessageHandlerHttpService),
-        name: "Google",
+        name: "Google2",
         baseUrl: "https://www.google.com.br/",
         handler: typeof(HttpServiceMessageHandler))]
     public class MessageHandlerHttpService : IMessageHandlerHttpService {
@@ -12,7 +12,7 @@ namespace ConsoleExampleNet8.HtppService {
         private readonly HttpClient _httpClient;
 
         public MessageHandlerHttpService(IHttpClientFactory factory) {
-            _httpClient = factory.CreateClient("Google");
+            _httpClient = factory.CreateClient("Google2");
         }
 
         public async Task GetGoogle() {

@@ -24,7 +24,7 @@ namespace ConsoleExampleNet8 {
         }
 
         public void Run() {
-            Console.Write(_scopeService.Get());
+            Console.WriteLine(_scopeService.Get());
 
             _httpService.GetGoogle().Wait();
         }
